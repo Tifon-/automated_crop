@@ -34,11 +34,13 @@ final class AutomatedCropDefault extends AbstractAutomatedCrop {
     }
 
     if ('width' === $this->findUnknownValue()) {
-      $this->calculateUnknownValue($this->cropBox['width']);
+      $value = !empty($this->cropBox['width']) ? $this->cropBox['width'] : $this->cropBox['max_width'];
+      $this->setCropBoxSize($this->calculateUnknownValue($value), $this->cropBox['height']);
     }
 
     if ('height' === $this->findUnknownValue()) {
-      $this->calculateUnknownValue($this->cropBox['height']);
+      $value = !empty($this->cropBox['height']) ? $this->cropBox['height'] : $this->cropBox['max_height'];
+      $this->setCropBoxSize($this->cropBox['width'], $this->calculateUnknownValue($value));
     }
 
     // Initialize auto crop area & unsure we can't exceed original image sizes.
@@ -65,16 +67,16 @@ final class AutomatedCropDefault extends AbstractAutomatedCrop {
   protected function automatedCropBoxCalculation() {
     $delta = $this->getDelta();
     $width = $this->originalImageSizes['width'];
-    $height = round(($width * $delta));
+    $height = round($this->cropBox['max_height'] * $delta);
 
     if (!empty($this->cropBox['max_height']) && $height > $this->cropBox['max_height']) {
       $height = $this->cropBox['max_height'];
-      $width = round(($height * $delta));
+      $width = round($height * $delta);
     }
 
     if (!empty($this->cropBox['max_width']) && $width > $this->cropBox['max_width']) {
       $width = $this->cropBox['max_width'];
-      $height = round(($width * $delta));
+      $height = round($width * $delta);
     }
 
     $this->cropBox['width'] = $width;

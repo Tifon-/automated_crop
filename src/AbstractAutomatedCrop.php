@@ -262,8 +262,8 @@ abstract class AbstractAutomatedCrop extends PluginBase implements AutomatedCrop
    */
   public function anchor() {
     return [
-      'x' => $this->cropBox['x'],
-      'y' => $this->cropBox['y'],
+      'x' => (int) $this->cropBox['x'],
+      'y' => (int) $this->cropBox['y'],
     ];
   }
 
@@ -404,7 +404,7 @@ abstract class AbstractAutomatedCrop extends PluginBase implements AutomatedCrop
   protected function setCropBoxProperties() {
     foreach ($this->configuration as $element => $value) {
       if (array_key_exists($element, $this->cropBox) && !empty($value)) {
-        $this->cropBox[$element] = (int) $value;
+        $this->cropBox[$element] = $value;
       }
     }
 
