@@ -1,8 +1,14 @@
 name: Automated Crop
 description: 'Provides automated crop features.'
-core: 8.x
+# core: 8.x
 package: Media
 type: module
 dependencies:
   - drupal:image
   - drupal:user
+
+# Information added by Drupal.org packaging script on 2018-07-14
+version: '2.x'
+core_version_requirement: ^8 || ^9
+project: 'automated_crop'
+datestamp: 1531559029
